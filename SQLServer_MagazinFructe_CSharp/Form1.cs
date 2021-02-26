@@ -12,9 +12,18 @@ namespace SQLServer_MagazinFructe_CSharp
 {
     public partial class Form1 : Form
     {
+        //add variables
+        Form2 form2Admin;
+        Form3 form3Employee;
+
         public Form1()
         {
             InitializeComponent();
+
+            form2Admin = new Form2();
+            form3Employee = new Form3();
+            form2Admin.Visible = false;
+            form3Employee.Visible = false;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -27,12 +36,35 @@ namespace SQLServer_MagazinFructe_CSharp
 
                 if (query.SingleOrDefault() != null)
                 {
-                    MessageBox.Show("ADMIN is logged.");
+                    if (form2Admin.Visible == true)
+                    {
+                        form2Admin.Visible = false;
+                    }
+                    else
+                    {
+                        if (form2Admin.IsDisposed)
+                        {
+                            form2Admin = new Form2();
+                        }
+                        form2Admin.Visible = true;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("error");
+                    if (form3Employee.Visible == true)
+                    {
+                        form3Employee.Visible = false;
+                    }
+                    else
+                    {
+                        if (form3Employee.IsDisposed)
+                        {
+                            form3Employee = new Form3();
+                        }
+                        form3Employee.Visible = true;
+                    }
                 }
+
 
                 var queryUser = new Table_Users()
                 {
@@ -52,9 +84,8 @@ namespace SQLServer_MagazinFructe_CSharp
                 //add persons
                 modelEntity.Table_Users.Add(queryUser);
 
-                //save the information
-                modelEntity.SaveChanges();
             }
         }
     }
 }
+
