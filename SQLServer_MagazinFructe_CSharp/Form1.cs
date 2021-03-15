@@ -30,7 +30,29 @@ namespace SQLServer_MagazinFructe_CSharp
         {
             using (MagazinFructeEntities modelEntity = new MagazinFructeEntities())
             {
-                var query = from admin in modelEntity.Table_Users
+                int LoginMember = 0;
+
+                foreach (var logare in modelEntity.Table_Users)
+                {
+                    if((logare.Username == txtUsername.Text) && (logare.Password == txtPassword.Text))
+                    {
+                        LoginMember = logare.Type;
+
+                        if (LoginMember == 1)
+                            form2Admin.Visible = true;
+                        else if (form3Employee == null || form3Employee.IsDisposed)
+                        {
+                            form3Employee = new Form3();
+
+                            form3Employee.Visible = true;
+                        }
+                        else if (LoginMember == 0)
+                            MessageBox.Show("error");
+                    }
+                }
+
+
+                /*var query = from admin in modelEntity.Table_Users
                             where admin.Username == txtUsername.Text && admin.Password == txtPassword.Text
                             select admin;
 
@@ -63,7 +85,7 @@ namespace SQLServer_MagazinFructe_CSharp
                         }
                         form3Employee.Visible = true;
                     }
-                }
+                }*/
 
 
                 var queryUser = new Table_Users()
