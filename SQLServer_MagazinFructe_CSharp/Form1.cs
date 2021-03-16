@@ -37,55 +37,19 @@ namespace SQLServer_MagazinFructe_CSharp
                     if((logare.Username == txtUsername.Text) && (logare.Password == txtPassword.Text))
                     {
                         LoginMember = logare.Type;
-
-                        if (LoginMember == 1)
-                            form2Admin.Visible = true;
-                        else if (form3Employee == null || form3Employee.IsDisposed)
-                        {
-                            form3Employee = new Form3();
-
-                            form3Employee.Visible = true;
-                        }
-                        else if (LoginMember == 0)
-                            MessageBox.Show("error");
                     }
                 }
 
-
-                /*var query = from admin in modelEntity.Table_Users
-                            where admin.Username == txtUsername.Text && admin.Password == txtPassword.Text
-                            select admin;
-
-                if (query.SingleOrDefault() != null)
+                if (LoginMember == 1)
+                    form2Admin.Visible = true;
+                if (LoginMember == 2 || form3Employee.IsDisposed)
                 {
-                    if (form2Admin.Visible == true)
-                    {
-                        form2Admin.Visible = false;
-                    }
-                    else
-                    {
-                        if (form2Admin.IsDisposed)
-                        {
-                            form2Admin = new Form2();
-                        }
-                        form2Admin.Visible = true;
-                    }
+                    form3Employee = new Form3();
+
+                    form3Employee.Visible = true;
                 }
-                else
-                {
-                    if (form3Employee.Visible == true)
-                    {
-                        form3Employee.Visible = false;
-                    }
-                    else
-                    {
-                        if (form3Employee.IsDisposed)
-                        {
-                            form3Employee = new Form3();
-                        }
-                        form3Employee.Visible = true;
-                    }
-                }*/
+                if (LoginMember == 0)
+                    MessageBox.Show("User was not found.");
 
 
                 var queryUser = new Table_Users()
